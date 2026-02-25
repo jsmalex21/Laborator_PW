@@ -184,3 +184,43 @@ body.dark-mode footer {
   cursor: pointer;
   user-select: none;
 }
+
+/* 
+#education ol {
+  padding-left: 30px; 
+  margin-left: 0;
+}
+
+#education li {
+  margin-left: 0;
+  padding-left: 4px;
+} */
+
+#education ol , ul {
+  list-style-position : inside;
+}
+
+/* Back to top */
+#back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: none;
+  background: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+#back-to-top:hover {
+  background: var(--secondary-color);
+}
+
+/* Folosește clasa deja definită */
+.hidden {
+  display: none;
+}
