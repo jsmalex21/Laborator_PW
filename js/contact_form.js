@@ -1,71 +1,72 @@
-// Se execută după încărcarea completă a paginii
 document.addEventListener("DOMContentLoaded", () => {
   // ===== Anul curent în footer =====
   const yearEl = document.getElementById("year");
-  if (yearEl) {
-    yearEl.textContent = new Date().getFullYear();
-  }
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // ===== Exercițiul 1: Salut personalizat =====
+  // ===== Ex.1: Salut personalizat =====
   const headerParagraph = document.querySelector("header p");
   const hour = new Date().getHours();
 
   let mesajSalut;
-
   if (hour >= 6 && hour <= 11) {
-    mesajSalut = "Bună dimineața! Bine ai venit pe pagina mea.";
+    mesajSalut = "Bună dimineața! ";
   } else if (hour >= 12 && hour <= 17) {
-    mesajSalut = "Bună ziua! Bine ai venit pe pagina mea.";
+    mesajSalut = "Bună ziua! ";
   } else {
-    mesajSalut = "Bună seara! Bine ai venit pe pagina mea.";
+    mesajSalut = "Bună seara! ";
   }
 
   if (headerParagraph) {
-    headerParagraph.textContent = mesajSalut;
+    headerParagraph.textContent =
+      mesajSalut + "Bine ai venit pe pagina mea.";
   }
 
-  // ===== Exercițiul 2: Validare reală formular =====
+  // ===== Ex.2: Validare formular =====
   const form = document.querySelector("form");
   const feedback = document.getElementById("form-feedback");
 
-  form.addEventListener("submit", function (event) {
-    // Previne reload-ul paginii
-    event.preventDefault();
+  if (form && feedback) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
 
-    const nume = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const mesaj = document.getElementById("message").value.trim();
+      const nume = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const mesaj = document.getElementById("message").value.trim();
 
-    // Reset feedback
-    feedback.textContent = "";
-    feedback.style.color = "red";
+      feedback.textContent = "";
+      feedback.style.color = "red";
 
-    // Validări
-    if (nume.length < 2) {
-      feedback.textContent = "Nume prea scurt!";
-      return;
-    }
+      if (nume.length < 2) {
+        feedback.textContent = "Nume prea scurt!";
+        return;
+      }
 
-    if (!email.includes("@")) {
-      feedback.textContent = "Email invalid!";
-      return;
-    }
+      if (!email.includes("@")) {
+        feedback.textContent = "Email invalid!";
+        return;
+      }
 
-    if (mesaj.length < 10) {
-      feedback.textContent = "Mesajul trebuie să aibă cel puțin 10 caractere!";
-      return;
-    }
+      if (mesaj.length < 10) {
+        feedback.textContent =
+          "Mesajul trebuie să aibă cel puțin 10 caractere!";
+        return;
+      }
 
-    // Dacă totul e valid
-    feedback.style.color = "green";
-    feedback.textContent = `Mulțumim, ${nume}! Mesajul a fost trimis.`;
+      feedback.style.color = "green";
+      feedback.textContent = `Mulțumim, ${nume}! Mesajul a fost trimis.`;
 
-    console.log("Nume:", nume);
-    console.log("Email:", email);
-    console.log("Mesaj:", mesaj);
-    console.warn("Goodbye World!");
+      form.reset();
+    });
+  }
 
-    // Reset formular
-    form.reset();
-  });
+  // ===== Ex.3: Dark / Light Mode =====
+  const toggleButton = document.getElementById("theme-toggle");
+  if (toggleButton) {
+    toggleButton.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      toggleButton.textContent = document.body.classList.contains("dark-mode")
+        ? "☀️ Light Mode"
+        : "🌙 Dark Mode";
+    });
+  }
 });

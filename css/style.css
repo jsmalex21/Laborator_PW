@@ -141,3 +141,37 @@ button {
 button:hover {
   background: var(--secondary-color);
 }
+
+/* ===== Exercițiul 3: Dark Mode ===== */
+body.dark-mode {
+  --background-color: #1a1a2e;
+  --text-color: #e0e0e0;
+  --primary-color: #4ea8de;
+  --secondary-color: #3a86ff;
+}
+
+/* Carduri în dark mode */
+body.dark-mode section,
+body.dark-mode aside {
+  background: #16213e;
+}
+
+/* Navbar + footer în dark */
+body.dark-mode nav,
+body.dark-mode footer {
+  background: transparent;
+}
+
+/* Buton Dark Mode din meniu */
+#theme-toggle {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+#theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
