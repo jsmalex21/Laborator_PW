@@ -69,4 +69,28 @@ document.addEventListener("DOMContentLoaded", () => {
         : "🌙 Dark Mode";
     });
   }
+    // ===== Ex.4: Toggle vizibilitate pe secțiuni (click pe h2) =====
+  const h2List = document.querySelectorAll("main h2");
+
+  h2List.forEach((h2) => {
+    // indicator inițial (▼ = deschis)
+    h2.textContent = `▼ ${h2.textContent}`;
+    h2.classList.add("toggle-h2");
+
+    h2.addEventListener("click", function () {
+      // ascunde/afișează toate elementele de după h2, până la următorul h2
+      let el = this.nextElementSibling;
+      let isHiddenNow = false;
+
+      while (el && el.tagName !== "H2") {
+        el.classList.toggle("hidden");
+        isHiddenNow = el.classList.contains("hidden");
+        el = el.nextElementSibling;
+      }
+
+      // schimbă indicatorul (▶ când e ascuns, ▼ când e afișat)
+      const title = this.textContent.replace(/^.[ ]/, ""); // scoate primul simbol + spațiu
+      this.textContent = `${isHiddenNow ? "▶" : "▼"} ${title}`;
+    });
+  });
 });

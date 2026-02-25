@@ -175,3 +175,12 @@ body.dark-mode footer {
 #theme-toggle:hover {
   background: rgba(255, 255, 255, 0.1);
 }
+/* Ex.4: Toggle secțiuni */
+.hidden {
+  display: none;
+}
+
+.toggle-h2 {
+  cursor: pointer;
+  user-select: none;
+}
