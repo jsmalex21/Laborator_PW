@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pagina mea de prezentare</title>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <header>
+    <h1>Taranu Alexandru</h1>
+    <p>Transilvania University of Brașov – Facultatea Inginerie Electrică și Știința Calculatoarelor</p>
+  </header>
+
+  <nav aria-label="Navigație internă">
+    <ul>
+      <li><a href="#about">Despre</a></li>
+      <li><a href="#education">Educație</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="about">
+      <h2>Despre</h2>
+
+      <img
+        src="Imagine/profile.jpg"
+        alt="Fotografie de profil"
+        loading="lazy"
+        class="profile-img"
+      />
+
+      <p>
+        Salut! Sunt student în anul 2 și îmi place programarea web.
+        Aceasta este o pagină realizată pentru laboratorul de Programare Web.
+      </p>
+    </section>
+
+    <section id="education">
+      <h2>Educație</h2>
+      <ol>
+        <li>2024–prezent: Licență – Specializarea Calculatoare</li>
+        <li>2020–2024: Colegiul Tehnic „Dimitrie Ghika”</li>
+        <li>2016–2020: Gimnaziul Liviu Rebreanu</li>
+      </ol>
+    </section>
+
+    <aside>
+      <h2>Extra</h2>
+      <p><strong>Hobby-uri:</strong> gaming, game development, programare, muzică, sport</p>
+      <blockquote>„Învăț în fiecare zi câte ceva nou.”</blockquote>
+    </aside>
+  </main>
+
+  <footer id="contact">
+    <p>&copy; <span id="year"></span> Taranu Alexandru-Costel. Toate drepturile rezervate.</p>
+
+    <h2>Contact</h2>
+
+    <form onsubmit="submitForm(event)">
+      <div class="field">
+        <label for="name">Nume</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+
+      <div class="field">
+        <label for="message">Mesaj</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+      </div>
+
+      <button type="submit">Trimite</button>
+    </form>
+
+    <script src="js/contact_form.js"></script>
+  </footer>
+
+  <!-- Cerință laborator -->
+  <script>
+    alert("Hello World!");
+  </script>
+</body>
+</html>
