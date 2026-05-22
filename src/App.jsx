@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import Card from './Card';
+import QuickNote from './QuickNote';
+import TodoList from './TodoList';
+import ContactForm from './ContactForm';
 
 function App() {
   const projects = [
@@ -22,6 +25,13 @@ function App() {
         <button onClick={() => setCount(0)}>Reset</button>
       </div>
 
+      <hr />
+
+      <QuickNote />
+      <hr />
+      <TodoList />
+      <hr />
+      <ContactForm />
       <hr />
 
       <div>
