@@ -15,7 +15,7 @@ function ProjectList() {
   // Adăugare (POST)
   async function handleSubmit(e) {
     e.preventDefault();
-    const response = await fetch('http://localhost:3000/api/projects', {
+    const response = await fetch('https://laborator-pw-d90l.onrender.com/api/projects', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title, tech, done: false })
@@ -28,14 +28,14 @@ function ProjectList() {
   // Ștergere (DELETE) cu confirmare [cite: 626-629]
   async function handleDelete(id) {
     if (window.confirm('Sigur dorești să ștergi acest proiect?')) {
-      await fetch('http://localhost:3000/api/projects/' + id, { method: 'DELETE' });
+      await fetch('https://laborator-pw-d90l.onrender.com/api/projects' + id, { method: 'DELETE' });
       setProjects(projects.filter(p => p._id !== id));
     }
   }
 
   // Toggle (PUT) [cite: 608-611]
   async function handleToggle(id, currentDone) {
-    const response = await fetch('http://localhost:3000/api/projects/' + id, {
+    const response = await fetch('https://laborator-pw-d90l.onrender.com/api/projects' + id, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ done: !currentDone })
