@@ -7,7 +7,7 @@ function ProjectList() {
   const [tech, setTech] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/projects')
+    fetch('https://laborator-pw-d90l.onrender.com/api/projects')
       .then(r => r.json())
       .then(data => setProjects(data));
   }, []);
