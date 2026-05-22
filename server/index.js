@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -10,7 +11,7 @@ app.use(express.json());
 app.use(cors()); // Permite comunicarea cu React [cite: 580-582]
 
 mongoose.connect('mongodb://localhost:27017/dashboard')
-  .then(() => console.log('Conectat la MongoDB!'))
+  .then(() => console.log('Conectat la MongoDB Atlas!'))
   .catch(err => console.error('Eroare conectare:', err));
 
 // GET - Toate proiectele
