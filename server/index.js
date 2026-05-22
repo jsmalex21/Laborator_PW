@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const Project = require('./models/Project');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cors()); // Permite comunicarea cu React [cite: 580-582]
