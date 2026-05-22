@@ -1,33 +1,25 @@
-import { useState } from 'react';
-import QuickNote from './QuickNote';
-import TodoList from './TodoList';
-import ContactForm from './ContactForm';
-import ProjectList from './ProjectList';
+import { BrowserRouter, Routes, Route } from 'react-router';
+import Navbar from './Navbar';
+import Home from './pages/Home';
+import Projects from './pages/Projects';
+import Contact from './pages/Contact';
+import NotFound from './pages/NotFound';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>Numele vostru: Taranu Alexandru</p>
+    <BrowserRouter>
+      {/* Navbar este in afara <Routes>, deci apare mereu pe ecran */}
+      <Navbar />
 
-      <div>
-        <p>Ai apasat de {count} ori</p>
-        <button onClick={() => setCount(count + 1)}>+1</button>
-        <button onClick={() => setCount(count - 1)}>-1</button>
-        <button onClick={() => setCount(0)}>Reset</button>
-      </div>
-
-      <hr />
-      <QuickNote />
-      <hr />
-      <TodoList />
-      <hr />
-      <ContactForm />
-      <hr />
-      <ProjectList />
-    </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/contact" element={<Contact />} />
+        {/* Ruta * prinde orice link gresit (404) */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
