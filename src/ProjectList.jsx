@@ -3,97 +3,70 @@ import { useState, useEffect } from 'react';
 function ProjectList() {
   const [projects, setProjects] = useState([]);
   const [search, setSearch] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  
-  // State-uri pentru formularul de adăugare
   const [title, setTitle] = useState('');
   const [tech, setTech] = useState('');
 
-  // 1. Incarcarea initiala a datelor
-  useEffect(function() {
+  useEffect(() => {
     fetch('http://localhost:3000/api/projects')
       .then(r => r.json())
-      .then(data => {
-        setProjects(data);
-        setLoading(false);
-      })
-      .catch(() => {
-        setError('Eroare la incarcarea datelor');
-        setLoading(false);
-      });
+      .then(data => setProjects(data));
   }, []);
 
-  // 2. Functia de stergere (DELETE)
+  // Adăugare (POST)
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const response = await fetch('http://localhost:3000/api/projects', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title, tech, done: false })
+    });
+    const newProject = await response.json();
+    setProjects([...projects, newProject]);
+    setTitle(''); setTech('');
+  }
+
+  // Ștergere (DELETE) cu confirmare [cite: 626-629]
   async function handleDelete(id) {
-    try {
+    if (window.confirm('Sigur dorești să ștergi acest proiect?')) {
       await fetch('http://localhost:3000/api/projects/' + id, { method: 'DELETE' });
       setProjects(projects.filter(p => p._id !== id));
-    } catch (err) {
-      console.error('Eroare la stergere:', err);
     }
   }
 
-  // 3. Functia de adaugare (POST)
-  async function handleSubmit(e) {
-    e.preventDefault(); // Oprește reîncărcarea paginii
-    try {
-      const response = await fetch('http://localhost:3000/api/projects', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, tech }) // trimite datele către server
-      });
-      const newProject = await response.json();
-      setProjects([...projects, newProject]); // Adaugă noul proiect în listă
-      setTitle(''); // Golește input-urile
-      setTech('');
-    } catch (err) {
-      console.error('Eroare la adaugare:', err);
-    }
+  // Toggle (PUT) [cite: 608-611]
+  async function handleToggle(id, currentDone) {
+    const response = await fetch('http://localhost:3000/api/projects/' + id, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ done: !currentDone })
+    });
+    const updated = await response.json();
+    setProjects(projects.map(p => p._id === id ? updated : p));
   }
-
-  if (loading) return <p>Se incarca...</p>;
-  if (error) return <p>{error}</p>;
 
   return (
     <div>
-      <h3>Adauga Proiect Nou</h3>
+      <h3>Adaugă Proiect</h3>
       <form onSubmit={handleSubmit}>
-        <input 
-          value={title} 
-          onChange={(e) => setTitle(e.target.value)} 
-          placeholder="Titlu" 
-          required 
-        />
-        <input 
-          value={tech} 
-          onChange={(e) => setTech(e.target.value)} 
-          placeholder="Tehnologii" 
-          required 
-        />
-        <button type="submit">Adauga</button>
+        <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Titlu" required />
+        <input value={tech} onChange={(e) => setTech(e.target.value)} placeholder="Tehnologii" required />
+        <button type="submit">Adaugă</button>
       </form>
 
       <hr />
+      
+      <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Cauta..." />
 
-      <h3>Lista Proiecte</h3>
-      <input
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder="Cauta un proiect..."
-      />
-
-      <div style={{ marginTop: '10px' }}>
-        {projects
-          .filter(p => p.title.toLowerCase().includes(search.toLowerCase()))
-          .map(project => (
-            <div key={project._id} style={{ borderBottom: '1px solid gray', padding: '10px' }}>
-              <h3>{project.title}</h3>
-              <p>{project.tech}</p>
-              <button onClick={() => handleDelete(project._id)}>Sterge</button>
-            </div>
-          ))}
-      </div>
+      {projects.filter(p => p.title.toLowerCase().includes(search.toLowerCase())).map(p => (
+        <div key={p._id} style={{ border: '1px solid gray', padding: '10px', margin: '10px 0' }}>
+          <h3>{p.title} {p.done ? '✅' : '⏳'}</h3>
+          <p>{p.tech}</p>
+          <button onClick={() => handleToggle(p._id, p.done)}>
+            {p.done ? "Redeschide" : "Finalizat"}
+          </button>
+          <button onClick={() => handleDelete(p._id)} style={{ marginLeft: '10px' }}>Șterge</button>
+        </div>
+      ))}
     </div>
   );
 }
