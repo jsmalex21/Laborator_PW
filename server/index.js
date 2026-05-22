@@ -10,7 +10,7 @@ const PORT = 3000;
 app.use(express.json());
 app.use(cors()); // Permite comunicarea cu React [cite: 580-582]
 
-mongoose.connect('mongodb://localhost:27017/dashboard')
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Conectat la MongoDB Atlas!'))
   .catch(err => console.error('Eroare conectare:', err));
 
