@@ -50,4 +50,4 @@ app.get('/api/stats', async (req, res) => {
   res.json({ total, done, inProgress: total - done });
 });
 
-app.listen(PORT, () => console.log('Server pornit pe http://localhost:3000'));
+app.listen(PORT, () => console.log('Server pornit pe portul ' + PORT));
