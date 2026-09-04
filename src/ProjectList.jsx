@@ -53,6 +53,10 @@ function ProjectList() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title, tech, done: false })
       });
+      if (!response.ok) {
+        const errData = await response.json();
+        throw new Error(errData.error || 'Eroare la adăugare');
+      }
       const newProject = await response.json();
       setProjects([...projects, newProject]);
       setTitle('');
@@ -66,7 +70,10 @@ function ProjectList() {
   async function handleDelete(id) {
     if (window.confirm('Sigur dorești să ștergi acest proiect?')) {
       try {
-        await fetch(`${API_BASE}/${id}`, { method: 'DELETE' });
+        const response = await fetch(`${API_BASE}/${id}`, { method: 'DELETE' });
+        if (!response.ok) {
+          throw new Error('Eroare la ștergere');
+        }
         setProjects(projects.filter(p => (p._id || p.id) !== id));
       } catch (err) {
         alert('Eroare la ștergere: ' + err.message);
@@ -82,6 +89,10 @@ function ProjectList() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ done: !currentDone })
       });
+      if (!response.ok) {
+        const errData = await response.json();
+        throw new Error(errData.error || 'Eroare la actualizare');
+      }
       const updated = await response.json();
       setProjects(projects.map(p => ((p._id || p.id) === id ? updated : p)));
     } catch (err) {
