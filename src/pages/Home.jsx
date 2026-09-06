@@ -11,7 +11,7 @@ function Home() {
   useEffect(() => {
     const statsUrl = window.location.hostname === 'localhost'
       ? 'http://localhost:3000/api/stats'
-      : 'https://laborator-pw-d90l.onrender.com/api/stats';
+      : 'https://laborator-pw-d90i.onrender.com/api/stats';
 
     fetch(statsUrl)
       .then(r => r.json())

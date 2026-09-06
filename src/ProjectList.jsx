@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 // Se folosește serverul local sau de pe Render
 const API_BASE = window.location.hostname === 'localhost'
   ? 'http://localhost:3000/api/projects'
-  : 'https://laborator-pw-d90l.onrender.com/api/projects';
+  : 'https://laborator-pw-d90i.onrender.com/api/projects';
 
 function ProjectList() {
   const [projects, setProjects] = useState([]);
@@ -28,7 +28,7 @@ function ProjectList() {
       .catch(err => {
         // Dacă eșuează URL-ul principal, încercăm fallback pe celălalt URL
         const fallbackUrl = API_BASE.includes('localhost')
-          ? 'https://laborator-pw-d90l.onrender.com/api/projects'
+          ? 'https://laborator-pw-d90i.onrender.com/api/projects'
           : 'http://localhost:3000/api/projects';
 
         fetch(fallbackUrl)
